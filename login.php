@@ -128,6 +128,7 @@ require_once 'includes/header.php';
             <input type="submit" class="btn btn-primary" value="Login">
         </div>
         <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+        <p><a href="forgot_password.php">Forgot your password?</a></p> <!-- Added Forgot Password link -->
         <!-- Optional: Google Sign-in button placeholder -->
         <div class="google-signin-btn">
             <p>Or sign in with Google:</p>
