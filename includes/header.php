@@ -1,6 +1,12 @@
 <?php
 // header.php
 // This file will contain the opening HTML tags, head section, and navigation bar.
+
+// It's good practice to start session here if it's not started in every page that includes header.
+// However, since login.php and dashboard.php already start it, it might not be strictly necessary
+// for header.php itself, but it doesn't hurt.
+// session_start(); // Uncomment this if you want to ensure session is always started here.
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +30,7 @@
                     <?php if ($_SESSION['user_role'] === 'admin'): ?>
                         <li><a href="admin/admin-profile.php">Admin Profile</a></li>
                     <?php endif; ?>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="/NOTESYNC/logout.php">Logout</a></li> <!-- CHANGED THIS LINE -->
                 <?php else: ?>
                     <li><a href="login.php">Login</a></li>
                     <li><a href="register.php">Register</a></li>
