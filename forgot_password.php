@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     // Construct the reset link
                     // IMPORTANT: Replace 'http://localhost/NOTECYNC/' with your actual base URL
-                    $reset_link = "http://localhost/NOTECYNC/reset_password.php?token=" . $token . "&email=" . urlencode($email);
+                    $reset_link = "http://localhost/NOTESYNC/reset_password.php?token=" . $token . "&email=" . urlencode($email);
 
                     // Email content
                     $subject = "NoteSync Password Reset Request";
