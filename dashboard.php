@@ -1,6 +1,8 @@
 <?php
 // dashboard.php
 // This is the dashboard for regular users (students).
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Start a PHP session to access session variables.
 session_start();

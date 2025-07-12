@@ -1,9 +1,12 @@
 <?php
 // admin/admin-profile.php
 // This is the profile page for administrators.
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 session_start();
 
+// Redirect if not logged in or not an admin
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || (isset($_SESSION["user_role"]) && $_SESSION["user_role"] !== "admin")) {
     header("location: ../login.php");
     exit;
@@ -12,18 +15,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || (isset($_
 // Include your database connection file
 // Make sure the path is correct: It goes up one directory (..)
 // then into the 'includes' folder, and finds 'db_connect.php'.
-require_once '../includes/db_connect.php'; // <--- THIS IS THE KEY LINE
+require_once '../includes/db_connect.php';
 
-require_once '../includes/header.php';
+// --- Image Path Handling ---
+// Define a default profile picture path relative to the Notesync root.
+// Assuming your 'img' folder is directly under 'Notesync'.
+// Example: D:\xampp\htdocs\Notesync\img\admin.jpg
+$defaultProfilePictureWebPath = '../img/admin.jpg'; // This path is relative to the current script (admin/admin-profile.php)
 
-// Define a default profile picture path if none is set or found
-$profilePicture = isset($_SESSION["profile_picture"]) && !empty($_SESSION["profile_picture"])
-                  ? $_SESSION["profile_picture"]
-                  : 'img/admin.jpg'; // Path from the base project directory (e.g., NOTESYNC/img/admin.jpg)
-
-// Ensure the path is correct from the perspective of the browser
-$basePath = '/NOTESYNC/';
-$fullProfilePicturePath = $basePath . $profilePicture;
+// Determine the actual profile picture source.
+// $_SESSION["profile_picture"] should ideally store the web-accessible path
+// (e.g., '/NOTESYNC/uploads/user_avatar.jpg' or '../img/admin.jpg').
+$profilePictureSrc = isset($_SESSION["profile_picture"]) && !empty($_SESSION["profile_picture"])
+                     ? htmlspecialchars($_SESSION["profile_picture"])
+                     : htmlspecialchars($defaultProfilePictureWebPath);
 
 // Initialize variables for email and last login
 $adminEmail = "N/A"; // Default value if not found
@@ -37,7 +42,7 @@ if (isset($_SESSION["user_id"])) {
     $sql = "SELECT email, last_login FROM users WHERE id = ?";
 
     // Using prepared statements for security (prevents SQL injection)
-    if ($stmt = $conn->prepare($sql)) { // Use $conn (from db_connect.php) for preparing
+    if ($stmt = $conn->prepare($sql)) {
         // Bind parameters: "i" for integer (user_id)
         $stmt->bind_param("i", $_SESSION["user_id"]);
 
@@ -55,27 +60,39 @@ if (isset($_SESSION["user_id"])) {
                 if ($stmt->fetch()) {
                     $adminEmail = $email;
                     // Format last login if it's a timestamp or datetime string
+                    // If it's NULL, display "Never"
                     $lastLogin = ($db_last_login !== null) ? date("Y-m-d H:i:s", strtotime($db_last_login)) : "Never";
                 }
+            } else {
+                // User not found in DB, though they are in session. Log or handle this anomaly.
+                error_log("Admin profile: User ID " . $_SESSION["user_id"] . " not found in database.");
             }
         } else {
-            echo "Oops! Something went wrong with the database query: " . $stmt->error;
+            // Log the execution error, do not echo raw error to user.
+            error_log("Error executing profile query: " . $stmt->error);
+            echo "<p class='error'>Error fetching profile data. Please try again later.</p>";
         }
         // Close statement
         $stmt->close();
     } else {
-        echo "Error preparing statement: " . $conn->error;
+        // Log the prepare error, do not echo raw error to user.
+        error_log("Error preparing profile query: " . $conn->error);
+        echo "<p class='error'>Error preparing to fetch profile data. Please try again later.</p>";
     }
 }
 
 // It's good practice to close the database connection when done
-$conn->close(); // <--- THIS IS THE KEY LINE TO CLOSE CONNECTION
+$conn->close();
+
+// Include the header file after all PHP logic that might set session variables or titles
+require_once '../includes/header.php';
 ?>
 
+<div class="container">
     <h2>Admin Profile</h2>
 
     <div class="profile-header" style="text-align: center; margin-bottom: 20px;">
-        <img src="<?php echo htmlspecialchars($fullProfilePicturePath); ?>" alt="Admin Profile Picture" class="profile-avatar">
+        <img src="<?php echo $profilePictureSrc; ?>" alt="Admin Profile Picture" class="profile-avatar">
         <p>Welcome, <strong><?php echo htmlspecialchars($_SESSION["username"]); ?></strong>!</p>
         <p>Your Role: <strong><?php echo htmlspecialchars($_SESSION["user_role"]); ?></strong></p>
     </div>
@@ -94,7 +111,9 @@ $conn->close(); // <--- THIS IS THE KEY LINE TO CLOSE CONNECTION
     </div>
 
     <p style="margin-top: 30px;">This section allows administrators to view and manage their profile details.</p>
+</div>
 
 <?php
+// Include the footer file
 require_once '../includes/footer.php';
 ?>
