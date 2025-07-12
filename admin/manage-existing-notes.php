@@ -16,40 +16,35 @@ require_once '../includes/header.php'; // Path relative to manage-users.php
 ?>
 
 <h2>Manage Notes</h2>
-<p>Here you can view, edit, or delete user accounts.</p>
+<p>Here you can view, edit, or delete notes.</p> <div class="table-responsive"> <?php
+    // Fetch notes from the database
+    $sql_notes = "SELECT id, title, description, price, file_path, uploaded_by, created_at FROM notes ORDER BY created_at ASC"; // Corrected variable name for clarity
+    $result_notes = $conn->query($sql_notes);
 
-<div class="user-list">
-    <?php
-    // Fetch users from the database
-    $sql_users = "SELECT id, title, description, price,file_path,uploaded_by, created_at FROM notes ORDER BY created_at ASC";
-    $result_users = $conn->query($sql_users);
-
-    if ($result_users && $result_users->num_rows > 0) {
-        echo "<table>";
-        echo "<thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Price</th><th>File path</th><th>Uploaded by</th><th>Created At</th></tr></thead>";
+    if ($result_notes && $result_notes->num_rows > 0) {
+        echo "<table class='notes-table'>"; // Added class 'notes-table'
+        echo "<thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Price</th><th>File path</th><th>Uploaded by</th><th>Created At</th><th>Actions</th></tr></thead>"; // Added 'Actions' header
         echo "<tbody>";
-        while ($notes = $result_users->fetch_assoc()) {
+        while ($note = $result_notes->fetch_assoc()) { // Changed $users to $note for clarity
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($notes['id']) . "</td>";
-            echo "<td>" . htmlspecialchars($notes['title']) . "</td>";
-            echo "<td>" . htmlspecialchars($notes['description']) . "</td>";
-            echo "<td>" . htmlspecialchars($notes['price']) . "</td>";
-            echo "<td>" . htmlspecialchars($notes['file_path']) . "</td>";
-            echo "<td>" . htmlspecialchars($notes['uploaded_by']) . "</td>";
-            echo "<td>" . htmlspecialchars($notes['created_at']) . "</td>";
+            echo "<td>" . htmlspecialchars($note['id']) . "</td>";
+            echo "<td>" . htmlspecialchars($note['title']) . "</td>";
+            echo "<td>" . htmlspecialchars($note['description']) . "</td>";
+            echo "<td>" . htmlspecialchars($note['price']) . "</td>";
+            echo "<td>" . htmlspecialchars($note['file_path']) . "</td>";
+            echo "<td>" . htmlspecialchars($note['uploaded_by']) . "</td>";
+            echo "<td>" . htmlspecialchars($note['created_at']) . "</td>";
             echo "<td>";
-            echo "<a href='edit-notes.php?id=" . $notes['id'] . "' class='btn btn-small btn-edit'>Edit</a> ";
-            echo "<a href='delete-notes.php?id=" . $notes['id'] . "' class='btn btn-small btn-delete' onclick='return confirm(\"Are you sure?\");'>Delete</a>";
+            echo "<a href='edit-notes.php?id=" . $note['id'] . "' class='btn btn-small btn-edit'>Edit</a> ";
+            echo "<a href='delete-notes.php?id=" . $note['id'] . "' class='btn btn-small btn-delete' onclick='return confirm(\"Are you sure you want to delete this note?\");'>Delete</a>";
             echo "</td>";
             echo "</tr>";
         }
         echo "</tbody>";
         echo "</table>";
     } else {
-        echo "<p>No users found.</p>";
+        echo "<p>No notes found.</p>"; // Changed this line
     }
     $conn->close();
     ?>
-</div>
-
-<?php require_once '../includes/footer.php'; ?>
+</div> <?php require_once '../includes/footer.php'; ?>

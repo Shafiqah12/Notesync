@@ -322,3 +322,104 @@ form input[type="password"]:focus {
 .fab.fa-google {
     margin-right: 10px; /* Space between icon and text */
 }
+
+/* --- Table Styles --- */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* Allows horizontal scrolling on small screens */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px; /* Slightly rounded corners for the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #fff; /* White background for the table area */
+    padding: 15px; /* Padding inside the responsive container */
+}
+
+.notes-table {
+    width: 100%;
+    border-collapse: collapse; /* Removes space between borders */
+    margin: 0; /* Resets default table margin */
+    font-size: 0.95em;
+    min-width: 700px; /* Ensures table doesn't get too squished on very small screens */
+}
+
+.notes-table th,
+.notes-table td {
+    padding: 12px 15px; /* Padding inside cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #e0e0e0; /* Light border between rows */
+}
+
+.notes-table th {
+    background-color: #34495e; /* Darker background for headers */
+    color: #ffffff; /* White text for headers */
+    font-weight: bold;
+    text-transform: uppercase; /* Uppercase header text */
+    letter-spacing: 0.05em;
+    position: sticky; /* Make headers sticky for horizontal scroll */
+    top: 0;
+    z-index: 1; /* Ensure headers are above content when scrolling */
+}
+
+/* Zebra striping for table rows */
+.notes-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8; /* Light gray for even rows */
+}
+
+/* Hover effect for rows */
+.notes-table tbody tr:hover {
+    background-color: #eef; /* Light blue on hover */
+    cursor: pointer;
+}
+
+/* Styling for action buttons inside table cells */
+.notes-table td .btn {
+    padding: 6px 10px; /* Smaller padding for table buttons */
+    font-size: 0.85em; /* Smaller font size */
+    margin-right: 5px; /* Space between buttons */
+    border-radius: 4px;
+    display: inline-block; /* Ensure they sit side-by-side */
+}
+
+.notes-table td .btn-edit {
+    background-color: #007bff; /* Blue for Edit */
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.notes-table td .btn-edit:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.notes-table td .btn-delete {
+    background-color: #dc3545; /* Red for Delete */
+    color: white;
+    border: 1px solid #dc3545;
+}
+
+.notes-table td .btn-delete:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+}
+
+/* Style for the "No notes found." message */
+.table-responsive + p { /* Targets a paragraph immediately following .table-responsive */
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Optional: Adjust main content padding if table is too wide */
+.main-content-area {
+    padding: 20px; /* Or adjust as needed */
+    max-width: 1200px; /* Limit content width */
+    margin: 20px auto; /* Center content */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
