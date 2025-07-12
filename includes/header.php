@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoteSync</title>
     <!-- Link your CSS files here -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/NOTESYNC/css/style.css">
     <!-- You might also include Bootstrap or Tailwind CSS here if you plan to use them -->
 </head>
 <body>

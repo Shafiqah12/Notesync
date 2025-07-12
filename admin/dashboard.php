@@ -18,22 +18,19 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || $_SESSION
 require_once '../includes/header.php';
 ?>
 
-<div class="dashboard-container">
     <h2>Welcome, Admin <?php echo htmlspecialchars($_SESSION["username"]); ?>!</h2>
     <p>This is your administrator dashboard. Here you can manage notes and users.</p>
-    <p>Your role: <?php echo htmlspecialchars($_SESSION["user_role"]); ?></p>
+    <p>Your role: <strong><?php echo htmlspecialchars($_SESSION["user_role"]); ?></strong></p>
 
-    <!-- Placeholder for admin-specific content -->
     <div class="dashboard-content">
         <h3>Admin Actions</h3>
-        <ul>
-            <li><button class="btn btn-primary">Upload New Note</button></li>
-            <li><button class="btn btn-primary">Manage Existing Notes</button></li>
-            <li><button class="btn btn-primary">Manage Users</button></li>
-        </ul>
+        <div class="admin-actions-buttons">
+            <a href="upload-note.php" class="btn btn-primary">Upload New Note</a>
+            <a href="manage-existing-notes.php" class="btn btn-primary">Manage Existing Notes</a>
+            <a href="manage-users.php" class="btn btn-primary">Manage Users</a>
+        </div>
         <p>You can start adding logic for admin functionalities here.</p>
     </div>
-</div>
 
 <?php
 // Include the footer file for consistent site layout.
