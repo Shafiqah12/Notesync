@@ -68,24 +68,27 @@ main {
 
 /* Authentication Container (Login/Register Forms) */
 .auth-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
+     /* Basic styling for the card */
+    background-color: #fff; /* White background */
+    border-radius: 8px; /* Slightly rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 40px; /* Ample padding inside the card */
+    width: 100%; /* Take full width within its parent */
+    max-width: 400px; /* Limit maximum width for better readability */
+    margin: 50px auto; /* Center horizontally and add space from top */
+    text-align: center; /* Center text content like H2 and P */
 }
 
 .auth-container h2 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 2rem;
+    font-size: 2em; /* Larger size for the main title */
+    color: #333; /* Darker text color */
+    margin-bottom: 10px; /* Space below the title */
 }
 
 .auth-container p {
-    color: #555;
-    margin-bottom: 25px;
+    font-size: 1em; /* Standard paragraph size */
+    color: #666; /* Slightly lighter text color */
+    margin-bottom: 30px; /* More space below the descriptive text */
 }
 
 /* Form Group Styling */
@@ -130,27 +133,30 @@ main {
 
 /* Buttons */
 .btn {
-    display: inline-block;
-    padding: 12px 25px;
-    font-size: 1rem;
+    display: block; /* Make buttons block-level to take full width */
+    width: 100%; /* Buttons span full width */
+    padding: 15px 20px;
+    font-size: 1.1em;
     font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none; /* Remove underline from anchor tags acting as buttons */
+    text-align: center; /* Center text inside buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    box-sizing: border-box; /* Crucial for consistent width calculation */
 }
 
 .btn-primary {
-    background-color: #1abc9c; /* Teal */
-    color: #fff;
+     background-color: #2ecc71; /* Your green color */
+    color: white;
+    border: none;
+    margin-top: 25px; /* Space above the primary button */
+    margin-bottom: 20px; /* Space between primary and Google button */
 }
 
 .btn-primary:hover {
-    background-color: #16a085; /* Darker teal */
-    transform: translateY(-2px);
+    background-color: #27ae60; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift effect */
 }
 
 .btn-google {
@@ -256,4 +262,63 @@ footer {
 .profile-actions .btn {
     margin-right: 10px; /* Space between buttons */
     margin-bottom: 10px; /* For stacking on smaller screens */
+}
+
+form {
+    display: flex; /* Use flexbox for vertical stacking */
+    flex-direction: column;
+    width: 100%; /* Form takes full width of container */
+    align-items: center; /* Center form elements horizontally within the form */
+}
+
+form label {
+    display: block; /* Make labels take their own line */
+    text-align: left; /* Align labels to the left */
+    width: 100%; /* Label spans full width */
+    margin-bottom: 8px; /* Space between label and input */
+    font-weight: bold; /* Make labels stand out */
+    color: #444;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 100%; /* Input fields span full width */
+    padding: 12px 15px; /* Ample padding inside input for better touch targets */
+    margin-bottom: 5px; /* Space before error message */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px; /* Slightly rounded corners for inputs */
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Style for focus state */
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    border-color: #2ecc71; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2); /* Soft shadow on focus */
+}
+
+.help-block {
+    color: #fff; /* Red for error messages */
+    font-size: 0.85em;
+    margin-top: 0; /* No top margin, as it's directly below input */
+    margin-bottom: 20px; /* Space after error message before next element */
+    text-align: left; /* Align error text to the left */
+    width: 100%;
+}
+
+.btn-google {
+    background-color: #fff;
+    color: #444;
+    border: 1px solid #ccc;
+}
+.btn-google:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-2px);
+}
+
+/* Style for the Google icon if you're using Font Awesome */
+.fab.fa-google {
+    margin-right: 10px; /* Space between icon and text */
 }

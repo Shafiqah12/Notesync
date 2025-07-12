@@ -77,7 +77,7 @@ require_once 'includes/header.php';
     </form>
 
     <div style="text-align:center;margin-top:20px;">
-        <a href="/NOTESYNC/google-auth.php" class="btn btn-danger">
+        <a href="/NOTESYNC/google-auth.php" class="btn btn-google">
             <i class="fab fa-google"></i> Sign in with Google
         </a>
     </div>
