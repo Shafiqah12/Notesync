@@ -35,8 +35,8 @@ require_once '../includes/header.php'; // Path relative to manage-users.php
             echo "<td>" . htmlspecialchars($note['uploaded_by']) . "</td>";
             echo "<td>" . htmlspecialchars($note['created_at']) . "</td>";
             echo "<td>";
-            echo "<a href='edit-notes.php?id=" . $note['id'] . "' class='btn btn-small btn-edit'>Edit</a> ";
-            echo "<a href='delete-notes.php?id=" . htmlspecialchars($note['id']) . "' class='btn btn-small btn-delete' onclick='return confirm(\"Are you sure you want to delete this note and its associated file permanently?\");'>Delete</a>";
+            echo "<a href='edit-notes.php?id=" . $note['id'] . "' class='btn btn-info'>Edit</a> ";
+            echo "<a href='delete-notes.php?id=" . htmlspecialchars($note['id']) . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this note and its associated file permanently?\");'>Delete</a>";
             echo "</td>";
             echo "</tr>";
         }

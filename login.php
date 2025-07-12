@@ -59,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $conn->close();
 require_once 'includes/header.php';
 ?>
-<!-- -------------  HTML FORM  -------------- -->
 <div class="auth-container">
     <h2>Login</h2>
     <p>Please fill in your credentials to login.</p>
@@ -77,8 +76,8 @@ require_once 'includes/header.php';
     </form>
 
     <div style="text-align:center;margin-top:20px;">
-        <a href="/NOTESYNC/google-auth.php" class="btn btn-danger">
-            <i class="fab fa-google"></i> Sign in with Google
+        <a href="/NOTESYNC/google-auth.php" class="btn btn-google">
+            <i class="fab fa-google"></i> Sign in with Google
         </a>
     </div>
 </div>
