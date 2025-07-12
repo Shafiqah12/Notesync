@@ -1,4 +1,5 @@
 <?php
+// includes/header.php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -16,20 +17,22 @@ if (session_status() === PHP_SESSION_NONE) {
 <header>
     <nav>
       <div class="logo">
-    <a href="/NOTESYNC/index.php"> <img src="/NOTESYNC/img/notesyncs-logo.jpg" alt="NoteSync Logo" class="header-logo">
-    </a>
-</div>
+        <a href="/NOTESYNC/index.php">
+            <img src="/NOTESYNC/img/notesyncs-logo.jpg" alt="NoteSync Logo" class="header-logo">
+        </a>
+    </div>
 
     <ul class="nav-links">
         <li><a href="/NOTESYNC/dashboard.php">Dashboard</a></li>
-        <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION["user_role"] !== "admin"): ?>
-            <li><a href="/NOTESYNC/mynotes.php">My Notes</a></li> <?php endif; ?>
-        <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION["user_role"] === "admin"): ?>
-            <li><a href="/NOTESYNC/admin/admin-profile.php">Admin Profile</a></li>
-        <?php endif; ?>
         <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true): ?>
+            <?php if (isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "admin"): ?>
+                <li><a href="/NOTESYNC/admin/admin-profile.php">Admin Profile</a></li>
+            <?php else: /* This is for regular users */ ?>
+                <li><a href="/NOTESYNC/profile.php">User Profile</a></li>
+                <li><a href="/NOTESYNC/mynotes.php">My Notes</a></li>
+            <?php endif; ?>
             <li><a href="/NOTESYNC/logout.php">Logout</a></li>
-        <?php else: ?>
+        <?php else: /* Not logged in */ ?>
             <li><a href="/NOTESYNC/login.php">Login</a></li>
             <li><a href="/NOTESYNC/register.php">Register</a></li>
         <?php endif; ?>

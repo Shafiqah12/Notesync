@@ -1,24 +1,30 @@
 <?php
-// admin/edit-admin-profile.php
+// edit-profile.php
 session_start();
 
-// Check if the user is NOT logged in, or if they are logged in but are NOT an admin.
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || (isset($_SESSION["user_role"]) && $_SESSION["user_role"] !== "admin")) {
-    header("location: ../login.php");
+// Check if the user is logged in
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
     exit;
 }
 
-require_once '../includes/db_connect.php';
+// If an admin tries to access this page, redirect them to their specific edit page
+if (isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "admin") {
+    header("location: admin/edit-admin-profile.php");
+    exit;
+}
 
-$username = $_SESSION['username'] ?? ''; // Get username from session
-$email = ''; // Initialize email variable
-$profile_picture_path = ''; // Initialize profile picture path
+require_once __DIR__ . '/includes/db_connect.php';
 
-// Fetch admin's current email and profile picture from the database
+$username = $_SESSION['username'] ?? '';
+$email = '';
+$profile_picture_path = '/NOTESYNC/img/user.jpg'; // Default path
+
 if (isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
 
-    // The column name for role is 'role' in your DB, but session uses 'user_role'
+    // Fetch current email and profile picture from the database
+    // Use 'profile_picture' column name if that's what's in your DB
     $sql = "SELECT email, profile_picture FROM users WHERE id = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $user_id);
@@ -28,8 +34,9 @@ if (isset($_SESSION["user_id"])) {
                 $stmt->bind_result($db_email, $db_profile_picture);
                 $stmt->fetch();
                 $email = $db_email;
-                // If a profile picture exists in DB, use it, otherwise use a default admin image.
-                $profile_picture_path = !empty($db_profile_picture) ? htmlspecialchars($db_profile_picture) : '/NOTESYNC/img/admin.jpg'; // Using 'admin.jpg' as default
+                if (!empty($db_profile_picture)) {
+                    $profile_picture_path = htmlspecialchars($db_profile_picture);
+                }
             }
         }
         $stmt->close();
@@ -37,16 +44,16 @@ if (isset($_SESSION["user_id"])) {
 }
 $conn->close();
 
-require_once '../includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 ?>
 
 <div class="container content">
-    <h2>Edit Admin Profile</h2>
+    <h2>Edit Profile</h2>
     <p>Here you can update your profile information and picture.</p>
 
-    <form action="process-admin-profile-edit.php" method="POST" enctype="multipart/form-data">
+    <form action="process-profile-edit.php" method="POST" enctype="multipart/form-data">
         <div class="profile-avatar-section" style="text-align: center; margin-bottom: 20px;">
-            <img src="<?php echo $profile_picture_path; ?>" alt="Admin Profile Picture" class="profile-avatar-large">
+            <img src="<?php echo $profile_picture_path; ?>" alt="User Profile Picture" class="profile-avatar-large">
             <p>Current Profile Picture</p>
         </div>
 
@@ -68,10 +75,8 @@ require_once '../includes/header.php';
         </div>
 
         <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a href="admin-profile.php" class="btn btn-secondary">Cancel</a>
+        <a href="profile.php" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 
-<?php
-require_once '../includes/footer.php';
-?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
