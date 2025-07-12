@@ -28,7 +28,7 @@
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li><a href="dashboard.php">Dashboard</a></li>
                     <?php if ($_SESSION['user_role'] === 'admin'): ?>
-                        <li><a href="admin/admin-profile.php">Admin Profile</a></li>
+                        <li><a href="admin-profile.php">Admin Profile</a></li>
                     <?php endif; ?>
                     <li><a href="/NOTESYNC/logout.php">Logout</a></li> <!-- CHANGED THIS LINE -->
                 <?php else: ?>

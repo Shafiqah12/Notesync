@@ -220,3 +220,40 @@ footer {
         padding: 20px;
     }
 }
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1abc9c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee; /* Separator for the header section */
+}
+
+/* Optional: Style the profile details and actions sections */
+.profile-details, .profile-actions {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.profile-details p, .profile-actions a {
+    margin-bottom: 10px;
+}
+
+.profile-actions .btn {
+    margin-right: 10px; /* Space between buttons */
+    margin-bottom: 10px; /* For stacking on smaller screens */
+}

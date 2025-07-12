@@ -74,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["username"] = $username;
                             $_SESSION["user_email"] = $email;
                             $_SESSION["user_role"] = $role; // Store the user's role
+                            $_SESSION["profile_picture"] = $profile_picture_url_from_db;
 
                             // Redirect user to their respective dashboard based on role.
                             if ($role === "admin") {
