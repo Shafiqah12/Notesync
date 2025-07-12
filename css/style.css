@@ -733,3 +733,21 @@ form select:focus /* Added */
     outline: none;
     box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
 }
+
+/* Add this new rule or modify existing .header-logo rule in your style.css */
+.header-logo {
+    height: 45px; /* Adjust this height as needed for your design */
+    width: auto; /* Maintains the aspect ratio of the image */
+    vertical-align: middle; /* Helps align it if there's text next to it */
+    margin-right: 10px; /* Optional: adds space if text is next to it */
+}
+
+/* Adjust .logo a if you removed the text from the HTML, otherwise keep previous styles */
+.logo a {
+    display: flex; /* Use flexbox to align image and text if both are present */
+    align-items: center; /* Vertically center image and text */
+    text-decoration: none;
+    color: #fff; /* Keep if you have text, remove if only image */
+    font-size: 1.8rem; /* Keep if you have text, remove if only image */
+    font-weight: bold; /* Keep if you have text, remove if only image */
+}
