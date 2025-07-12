@@ -23,7 +23,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <?php if (!empty($_SESSION['loggedin'])): ?>
                 <li><a href="/NOTESYNC/dashboard.php">Dashboard</a></li>
                 <?php if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
-                    <li><a href="/NOTESYNC/admin/dashboard.php">Admin Panel</a></li>
+                    <li><a href="/NOTESYNC/admin/admin-profile.php">Admin Profile</a></li>
                 <?php endif; ?>
                 <li><a href="/NOTESYNC/logout.php">Logout</a></li>
             <?php else: ?>
