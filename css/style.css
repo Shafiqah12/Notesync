@@ -423,3 +423,162 @@ form input[type="password"]:focus {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+/* --- Notes Grid and Card Styles --- */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 25px; /* Space between cards */
+    padding: 20px 0;
+}
+
+.note-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Stronger shadow for cards */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes button to bottom */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.note-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.note-card h4 {
+    color: #34495e;
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.note-card .description {
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Allows description to take up available space */
+}
+
+.note-card .price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #28a745; /* Green for price */
+    margin-bottom: 15px;
+}
+
+.note-card .uploaded-info {
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.note-card .btn-primary {
+    align-self: flex-start; /* Align button to the left */
+    padding: 10px 18px;
+    font-size: 0.9em;
+    text-decoration: none;
+    background-color: #2ecc71; /* Your primary button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.note-card .btn-primary:hover {
+    background-color: #27ae60;
+}
+
+.note-card .no-file {
+    color: #dc3545; /* Red for no file */
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .notes-grid {
+        grid-template-columns: 1fr; /* Single column on small screens */
+        padding: 15px 10px;
+    }
+
+    .dashboard-container { /* Ensure main content area also adapts */
+        padding: 15px;
+    }
+}
+
+/* Add or adjust styles for the general dashboard container */
+.dashboard-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin: 30px auto; /* Center the container */
+}
+
+.dashboard-container h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.dashboard-container p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.dashboard-container hr {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin: 25px 0;
+}
+/* In style.css */
+
+.btn-success {
+    background-color: #28a745; /* Green */
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: flex-start; /* Ensure button aligns nicely in note-card flexbox */
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.purchased-note {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff; /* Blue, or a color indicating "owned" */
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+    align-self: flex-start; /* Align text nicely in note-card flexbox */
+}
+
+/* Add or adjust styles for status messages if you don't have them */
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 15px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.help-block { /* For error messages */
+    color: #dc3545; /* Red */
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}

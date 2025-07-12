@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>NoteSync</title>
 
     <link rel="stylesheet" href="/NOTESYNC/css/style.css" />
-</head>
+    </head>
 <body>
 <header>
     <nav>
@@ -19,18 +19,20 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="/NOTESYNC/index.php">NoteSync</a>
         </div>
 
-        <ul class="nav-links">
-            <?php if (!empty($_SESSION['loggedin'])): ?>
-                <li><a href="/NOTESYNC/dashboard.php">Dashboard</a></li>
-                <?php if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
-                    <li><a href="/NOTESYNC/admin/admin-profile.php">Admin Profile</a></li>
-                <?php endif; ?>
-                <li><a href="/NOTESYNC/logout.php">Logout</a></li>
-            <?php else: ?>
-                <li><a href="/NOTESYNC/login.php">Login</a></li>
-                <li><a href="/NOTESYNC/register.php">Register</a></li>
-            <?php endif; ?>
-        </ul>
+    <ul class="nav-links">
+        <li><a href="/NOTESYNC/dashboard.php">Dashboard</a></li>
+        <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION["user_role"] !== "admin"): ?>
+            <li><a href="/NOTESYNC/my-notes.php">My Notes</a></li> <?php endif; ?>
+        <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION["user_role"] === "admin"): ?>
+            <li><a href="/NOTESYNC/admin/dashboard.php">Admin Panel</a></li>
+        <?php endif; ?>
+        <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true): ?>
+            <li><a href="/NOTESYNC/logout.php">Logout</a></li>
+        <?php else: ?>
+            <li><a href="/NOTESYNC/login.php">Login</a></li>
+            <li><a href="/NOTESYNC/register.php">Register</a></li>
+        <?php endif; ?>
+    </ul>
     </nav>
 </header>
 <main>
