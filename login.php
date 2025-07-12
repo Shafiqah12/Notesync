@@ -1,97 +1,85 @@
 <?php
-// buy-note.php
-// Handles the "purchase" of a note.
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-session_start(); // Ensure session is started at the very beginning
+session_start();
 require_once 'includes/db_connect.php';
 
-// Access Control: Only logged-in users can buy notes
-// AND ensure 'user_id' is set in session for the user ID
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || $_SESSION["user_role"] === "admin" || !isset($_SESSION["user_id"])) {
-    // Redirect if not logged in, is an admin, or user ID is missing from session
-    $_SESSION['purchase_status'] = "<div class='help-block'>You must be logged in to purchase notes.</div>";
-    header("location: login.php");
+if (!empty($_SESSION['loggedin'])) {
+    header("Location: " . ($_SESSION['user_role'] === 'admin' ? 'admin/dashboard.php' : 'dashboard.php'));
     exit;
 }
 
-// Correctly retrieve user_id from the session
-$user_id = $_SESSION['user_id']; // <--- CHANGED THIS LINE
-$purchase_status_message = '';
+/* ---------- form handling ---------- */
+$email_username_err = $password_err = '';
+$email_username_val = '';
 
-if (isset($_GET['note_id']) && !empty(trim($_GET['note_id']))) {
-    $note_id = trim($_GET['note_id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email_username = trim($_POST['email_username'] ?? '');
+    $password       = trim($_POST['password']       ?? '');
 
-    // Validate note_id is an integer
-    if (!filter_var($note_id, FILTER_VALIDATE_INT)) {
-        $_SESSION['purchase_status'] = "<div class='help-block'>Invalid note ID provided.</div>";
-        header("location: dashboard.php");
-        exit;
-    }
+    $email_username_val = htmlspecialchars($email_username);
 
-    // Check if the note actually exists
-    $sql_check_note = "SELECT id FROM notes WHERE id = ?";
-    if ($stmt_check = $conn->prepare($sql_check_note)) {
-        $stmt_check->bind_param("i", $note_id);
-        $stmt_check->execute();
-        $stmt_check->store_result();
-        if ($stmt_check->num_rows == 0) {
-            $_SESSION['purchase_status'] = "<div class='help-block'>Note not found.</div>";
-            header("location: dashboard.php");
-            exit;
-        }
-        $stmt_check->close();
-    } else {
-        $_SESSION['purchase_status'] = "<div class='help-block'>Database error checking note existence.</div>";
-        header("location: dashboard.php");
-        exit;
-    }
+    if ($email_username === '') $email_username_err = 'Please enter your email or username.';
+    if ($password === '')       $password_err       = 'Please enter your password.';
 
-    // Check if user has already purchased this note
-    $sql_check_purchase = "SELECT id FROM purchases WHERE user_id = ? AND note_id = ?";
-    if ($stmt_check_purchase = $conn->prepare($sql_check_purchase)) {
-        $stmt_check_purchase->bind_param("ii", $user_id, $note_id);
-        $stmt_check_purchase->execute();
-        $stmt_check_purchase->store_result();
-        if ($stmt_check_purchase->num_rows > 0) {
-            $_SESSION['purchase_status'] = "<div class='help-block'>You have already purchased this note.</div>";
-            header("location: dashboard.php");
-            exit;
-        }
-        $stmt_check_purchase->close();
-    } else {
-        $_SESSION['purchase_status'] = "<div class='help-block'>Database error checking previous purchase.</div>";
-        header("location: dashboard.php");
-        exit;
-    }
+    if ($email_username_err === '' && $password_err === '') {
+        $sql  = "SELECT id, username, email, password, role, profile_picture
+                 FROM users WHERE username = ? OR email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ss', $email_username, $email_username);
+        $stmt->execute();
+        $stmt->store_result();
 
-    // Insert the purchase record
-    $sql_insert_purchase = "INSERT INTO purchases (user_id, note_id) VALUES (?, ?)";
-    if ($stmt_insert = $conn->prepare($sql_insert_purchase)) {
-        $stmt_insert->bind_param("ii", $user_id, $note_id);
+        if ($stmt->num_rows === 1) {
+            $stmt->bind_result($id, $username, $email, $hash, $role, $pic);
+            $stmt->fetch();
 
-        if ($stmt_insert->execute()) {
-            $_SESSION['purchase_status'] = "<div class='success-message'>Note purchased successfully!</div>";
-            header("location: my-notes.php");
-            exit;
+            if (password_verify($password, $hash)) {
+                /* ---- successful login ---- */
+                session_regenerate_id(true);
+                $_SESSION['loggedin']        = true;
+                $_SESSION['user_id']         = $id;
+                $_SESSION['username']        = $username;
+                $_SESSION['user_email']      = $email;
+                $_SESSION['user_role']       = $role;
+                $_SESSION['profile_picture'] = $pic ?: '../img/admin.jpg';
+
+                header("Location: " . ($role === 'admin' ? 'admin/dashboard.php' : 'dashboard.php'));
+                exit;
+            } else {
+                $password_err = 'Incorrect password.';
+            }
         } else {
-            $_SESSION['purchase_status'] = "<div class='help-block'>Error purchasing note: " . $stmt_insert->error . "</div>";
-            header("location: dashboard.php");
-            exit;
+            $email_username_err = 'No account found with that username/email.';
         }
-        $stmt_insert->close();
-    } else {
-        $_SESSION['purchase_status'] = "<div class='help-block'>Database error preparing purchase.</div>";
-        header("location: dashboard.php");
-        exit;
+        $stmt->close();
     }
-} else {
-    $_SESSION['purchase_status'] = "<div class='help-block'>No note ID provided for purchase.</div>";
-    header("location: dashboard.php");
-    exit;
 }
-
 $conn->close();
+require_once 'includes/header.php';
 ?>
+<!-- -------------  HTML FORM  -------------- -->
+<div class="auth-container">
+    <h2>Login</h2>
+    <p>Please fill in your credentials to login.</p>
+
+    <form method="post" action="login.php">
+        <label>Email or Username</label>
+        <input type="text" name="email_username" value="<?= $email_username_val ?>">
+        <span class="help-block"><?= $email_username_err ?></span>
+
+        <label>Password</label>
+        <input type="password" name="password">
+        <span class="help-block"><?= $password_err ?></span>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <div style="text-align:center;margin-top:20px;">
+        <a href="/NOTESYNC/google-auth.php" class="btn btn-danger">
+            <i class="fab fa-google"></i> Sign in with Google
+        </a>
+    </div>
+</div>
+<?php require_once 'includes/footer.php'; ?>
