@@ -132,17 +132,21 @@ require_once '../includes/header.php'; // Ensure path is correct
             <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($price); ?>">
             <span class="help-block"><?php echo $price_err; ?></span>
 
-        <div class="form-group">
-    <label>Select Note File:</label>
-    <div class="file-upload-wrapper">
-        <input type="file" name="note_file" id="note_file" class="file-input">
-        <label for="note_file" class="custom-file-upload">
-            Choose File
-        </label>
-        <span class="file-name" id="file-name">No file chosen</span>
-    </div>
-    <span class="help-block"><?php echo $note_file_err ?? ''; ?></span>
-</div>
+            <div class="form-group">
+                <label for="noteFile" style="font-weight: bold; color: #333;">Select Note File:</label>
+                <input type="file" class="form-control-file" id="noteFile" name="note_file" style="display: none;">
+
+                <div class="file-input-display-wrapper">
+                    <label for="noteFile" class="custom-file-label">Choose File</label>
+                    <span id="file-name-display">No file chosen</span>
+                </div>
+
+                <small class="form-text text-muted" style="color: #666 !important;">
+                    Max 10MB, allowed types: PDF, DOC, DOCX, TXT, PPT, PPTX, XLS, XLSX, JPG, JPEG, PNG.
+                </small>
+                <span class="help-block"><?php echo $file_err ?? ''; ?></span>
+            </div>
+
             <button type="submit" class="btn btn-primary">Upload Note</button>
         </form>
     </div>
@@ -150,15 +154,15 @@ require_once '../includes/header.php'; // Ensure path is correct
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const fileInput = document.getElementById('note_file');
-        const fileNameSpan = document.getElementById('file-name');
+        const fileInput = document.getElementById('noteFile'); // Corrected ID
+        const fileNameDisplay = document.getElementById('file-name-display'); // Corrected ID
 
-        if (fileInput && fileNameSpan) {
+        if (fileInput && fileNameDisplay) {
             fileInput.addEventListener('change', function() {
                 if (this.files && this.files.length > 0) {
-                    fileNameSpan.textContent = this.files[0].name;
+                    fileNameDisplay.textContent = this.files[0].name;
                 } else {
-                    fileNameSpan.textContent = 'No file chosen';
+                    fileNameDisplay.textContent = 'No file chosen';
                 }
             });
         }
