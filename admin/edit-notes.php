@@ -175,10 +175,18 @@ require_once '../includes/header.php';
                 <?php endif; ?>
             </p>
 
-            <label>Replace Note File (Optional):</label>
-            <input type="file" name="note_file">
-            <span class="help-block"><?php echo $file_err; ?></span>
-            <small>Leave blank to keep the current file. Max 10MB, allowed types: PDF, DOC, DOCX, TXT, PPT, PPTX, XLS, XLSX, JPG, JPEG, PNG.</small>
+            <div class="form-group">
+                <label for="noteFile" style="font-weight: bold; color: #333;">Replace Note File (Optional):</label>
+                <input type="file" class="form-control-file" id="noteFile" name="note_file" style="display: none;">
+
+                <div class="file-input-display-wrapper"> <label for="noteFile" class="custom-file-label">Choose File</label>
+                    <span id="file-name-display">No file chosen</span>
+                </div>
+
+                <small class="form-text text-muted" style="color: #666 !important;">
+                    Leave blank to keep the current file. Max 10MB, allowed types: PDF, DOC, DOCX, TXT, PPT, PPTX, XLS, XLSX, JPG, JPEG, PNG.
+                </small>
+            </div>
 
             <label>Uploaded By (ID):</label>
             <input type="text" value="<?php echo $uploaded_by_display; ?>" disabled>
@@ -193,6 +201,23 @@ require_once '../includes/header.php';
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('noteFile');
+        const fileNameDisplay = document.getElementById('file-name-display');
+
+        if (fileInput && fileNameDisplay) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    fileNameDisplay.textContent = this.files[0].name;
+                } else {
+                    fileNameDisplay.textContent = 'No file chosen';
+                }
+            });
+        }
+    });
+</script>
 
 <?php
 $conn->close();

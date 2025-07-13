@@ -16,7 +16,7 @@ $username = '';
 $email = '';
 $role = ''; // Initialize role variable (corrected from user_role)
 $last_login = '';
-$profilePictureSrc = '/NOTESYNC/img/default-avatar.png'; // Default user avatar
+$profilePictureSrc = '/NOTESYNC/img/user.jpg'; // Default user avatar
 
 // Prepare a select statement to get user details including role and profile_picture
 // IMPORTANT: 'role' is used here to match your database column name.

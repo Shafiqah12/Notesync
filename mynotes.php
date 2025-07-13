@@ -93,7 +93,8 @@ require_once 'includes/header.php'; // Ensure this path is correct
                     // The database stores '../uploads/', but for the web, it needs to be '/NOTESYNC/uploads/'
                     $correct_file_path = str_replace('../uploads/', '/NOTESYNC/uploads/', $note['file_path']);
                     ?>
-                    <a href="<?php echo htmlspecialchars($correct_file_path); ?>" class="btn btn-primary" download>Download Note</a>
+                    <div class="button-group"> <a href="<?php echo htmlspecialchars($correct_file_path); ?>" class="btn btn-primary" download>Download Note</a>
+                        <a href="<?php echo htmlspecialchars($correct_file_path); ?>" class="btn btn-secondary" target="_blank">Read File</a> </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
