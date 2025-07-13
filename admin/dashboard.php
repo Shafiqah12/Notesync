@@ -75,24 +75,28 @@ if ($conn) {
 require_once '../includes/header.php';
 ?>
 
-<div class="main-content-area"> <h2>Welcome, Admin <?php echo htmlspecialchars($_SESSION["username"]); ?>!</h2>
-        <p>This is your administrator dashboard. Here you can manage notes and users.</p>
-        <p>Your role: <strong><?php echo htmlspecialchars($_SESSION["user_role"]); ?></strong></p>
+<div class="main-content-area">
+    <h2>Welcome, Admin <?php echo htmlspecialchars($_SESSION["username"]); ?>!</h2>
+    <p>This is your administrator dashboard. Here you can manage notes and users.</p>
+    <p>Your role: <strong><?php echo htmlspecialchars($_SESSION["user_role"]); ?></strong></p>
 
-        <div class="dashboard-content">
-            <h3>Admin Overview</h3>
-            <p>Total Registered Users: <strong><?php echo $total_users; ?></strong></p>
-            <p>Total Notes Uploaded: <strong><?php echo $total_notes; ?></strong></p>
-            <hr>
-            <h3>Admin Actions</h3>
-            <div class="admin-actions-buttons">
-                <a href="upload-note.php" class="btn btn-primary">Upload New Note</a>
-                <a href="manage-existing-notes.php" class="btn btn-primary">Manage Existing Notes</a>
-                <a href="manage-users.php" class="btn btn-primary">Manage Users</a>
+    <div class="dashboard-content">
+        <h3>Admin Overview</h3>
+        <p>Total Registered Users: <strong><?php echo $total_users; ?></strong></p>
+        <p>Total Notes Uploaded: <strong><?php echo $total_notes; ?></strong></p>
+        <hr>
+        <h3>Admin Actions</h3>
+        <div class="admin-actions-buttons">
+            <a href="upload-note.php" class="btn btn-primary">Upload New Note</a>
+            <a href="manage-existing-notes.php" class="btn btn-primary">Manage Existing Notes</a>
+            <a href="manage-users.php" class="btn btn-primary">Manage Users</a>
+            <a href="richest_notes_report.php" class="btn btn-primary">Richest Notes Report 💰</a>
             </div>
-            <p>You can start adding logic for admin functionalities here.</p>
-        </div>
-    </div> <?php
+        <p>You can start adding logic for admin functionalities here.</p>
+    </div>
+</div>
+
+<?php
 // -----------------------------------------------------------------------------
 // Include Footer and Close Database Connection:
 // The footer file typically contains closing body/html tags and scripts.
