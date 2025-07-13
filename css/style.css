@@ -18,7 +18,7 @@ body {
 header {
     background-color: #ff80a6; /* MODIFIED: Medium pink for header */
     color: #fff;
-    padding: 2rem 0; /* MODIFIED: Increased padding for taller header to fit logo */
+    padding: 1rem 0; /* MODIFIED: Increased padding for taller header to fit logo */
     box-shadow: 0 2px 8px rgba(255, 128, 166, 0.2); /* MODIFIED: Pink shadow */
     position: fixed;
     width: 100%;
@@ -51,7 +51,7 @@ nav {
 
 /* MODIFIED: Header Logo specific styling */
 .header-logo {
-    height: 80px; /* MODIFIED: Big logo for better fit within the expanded header */
+    height: 50px; /* MODIFIED: Big logo for better fit within the expanded header */
     width: auto; /* Maintain aspect ratio */
     vertical-align: middle;
     margin-right: 10px;
@@ -73,10 +73,30 @@ nav {
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
+    padding-bottom: 5px;
+    position: relative;
 }
 
 .nav-links a:hover {
     color: #ffccdd; /* MODIFIED: Lighter pink on hover */
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Position at the bottom of the link */
+    left: 50%; /* Start from the middle */
+    transform: translateX(-50%); /* Center the border */
+    width: 0; /* Initially no width */
+    height: 3px; /* Smaller height for the border */
+    background-color: #ffccdd; /* Lighter pink for the border */
+    transition: width 0.3s ease; /* Animate the width */
+    border-radius: 5px; /* Slightly rounded ends for the border */
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after { /* Assuming you'll add an 'active' class for current tab */
+    width: 70%; /* Make it 70% width of the link on hover/active */
 }
 
 /* Main Content Area - This affects dashboard, manage notes etc. */
@@ -458,7 +478,9 @@ form select:focus {
     position: sticky;
     top: 0;
     z-index: 1;
-    border-radius: 10px 10px 0 0; /* MODIFIED: Rounded top corners for header */
+    border-radius: 10px 10px 0 0;
+    border-bottom: 3px solid #ffccdd; /* Example: Small, pink border for table headers */
+    padding-bottom: 12px; /* Adjust padding to accommodate the border */ /* MODIFIED: Rounded top corners for header */
 }
 
 /* Zebra striping for table rows (both tables) */
@@ -804,7 +826,7 @@ form select:focus {
 
 /* Add this new rule or modify existing .header-logo rule in your style.css */
 .header-logo {
-    height: 80px; /* MODIFIED: Big logo for better fit within the expanded header */
+    height: 50px; /* MODIFIED: Big logo for better fit within the expanded header */
     width: auto; /* Maintain aspect ratio */
     vertical-align: middle;
     margin-right: 10px;
