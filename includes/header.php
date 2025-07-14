@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>NoteSync</title>
 
     <link rel="stylesheet" href="/NOTESYNC/css/style.css" />
-    </head>
+</head>
 <body>
 <header>
     <nav>
@@ -21,6 +21,12 @@ if (session_status() === PHP_SESSION_NONE) {
             <img src="/NOTESYNC/img/notesyncs-logo.jpg" alt="NoteSync Logo" class="header-logo">
         </a>
     </div>
+
+    <button class="hamburger-menu" aria-label="Toggle navigation">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+    </button>
 
     <ul class="nav-links">
         <li><a href="/NOTESYNC/dashboard.php">Dashboard</a></li>

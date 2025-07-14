@@ -6,6 +6,6 @@
     <footer>
         <p>&copy; <?php echo date("Y"); ?> NoteSync. All rights reserved.</p>
     </footer>
-    <script src="js/script.js"></script>
+    <script src="/NOTESYNC/js/script.js"></script>
 </body>
 </html>

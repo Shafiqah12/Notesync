@@ -81,11 +81,32 @@ nav {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
+    display: none;
+    flex-direction: column; /* Stack vertically for mobile */
+    position: absolute; /* Overlay effect */
+    top: 60px; /* Right below the header */
+    left: 0;
+    width: 100%;
+    background-color: var(--secondary-pink); /* Pink background for mobile menu */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 990; /* Below fixed header but above main content */
+    overflow-y: auto; /* Enable scrolling for many links */
+    max-height: calc(100vh - 60px);
+}
+
+.nav-links.active { /* Class added by JavaScript */
+    display: flex; /* Show the menu when active */
 }
 
 .nav-links li {
-    margin-left: 20px;
+    text-align: center;
+    margin: 0;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-links li:last-child {
+    border-bottom: none;
 }
 
 .nav-links a {
@@ -102,7 +123,7 @@ nav {
 }
 
 .nav-links a::after {
-    content: '';
+    content: none;
     position: absolute;
     bottom: 0; /* Position at the bottom of the link */
     left: 50%; /* Start from the middle */
@@ -117,6 +138,41 @@ nav {
 .nav-links a:hover::after,
 .nav-links a.active::after { /* Assuming you'll add an 'active' class for current tab */
     width: 70%; /* Make it 70% width of the link on hover/active */
+}
+
+/* --- HAMBURGER MENU ICON --- */
+.hamburger-menu {
+    display: flex; /* Show by default on mobile */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001; /* Ensure it's on top */
+}
+
+.hamburger-menu .line {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Hamburger icon animation when active (requires JS to toggle 'active' class) */
+.hamburger-menu.active .line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active .line:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.hamburger-menu.active .line:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
 }
 
 /* Main Content Area - This affects dashboard, manage notes etc. */
@@ -550,7 +606,7 @@ form select:focus {
 
 .btn-warning { /* Yellow for warning buttons (e.g., specific edits) */
     background-color: #ffeb3b; /* MODIFIED: Brighter yellow */
-    color: #333; /* Dark text for warning */
+    color: #fff; /* Dark text for warning */
     border: none; /* MODIFIED: No border */
     background-image: linear-gradient(to right, #ffe066, #ffeb3b);
     box-shadow: 0 3px 8px rgba(255, 235, 59, 0.3);
