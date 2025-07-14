@@ -257,7 +257,7 @@ main {
 /* MODIFIED: btn-google with !important for forceful override */
 .auth-container .btn-google {
     background-color: #ffffff !important;
-    color: #555 !important; /* MODIFIED: Darker text for better contrast */
+    color: #fff !important; /* MODIFIED: Darker text for better contrast */
     border: 1px solid #ffccdd !important; /* MODIFIED: Light pink border */
     padding: 15px 20px;
     font-size: 1.1em;
