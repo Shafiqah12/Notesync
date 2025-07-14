@@ -3,6 +3,26 @@
 /* MODIFIED: Google Fonts for a softer, more modern look */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
 
+/* Define CSS Variables for easier theme management */
+:root {
+    --primary-pink: #ff69b4; /* Hot Pink */
+    --secondary-pink: #ff80a6; /* Medium Pink */
+    --light-pink: #ffb3c7; /* Lighter Pink */
+    --pale-pink: #ffccdd; /* Paler Pink */
+    --very-light-pink: #ffeef2; /* Very Light Pink Background */
+}
+
+/* Basic Reset and Body Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 /* Basic Reset and Body Styling */
 body {
     font-family: 'Poppins', sans-serif; /* MODIFIED: Using Poppins for general text */
@@ -104,7 +124,7 @@ main {
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #ffffff; /* MODIFIED: Pure white for main content areas */
+    background: linear-gradient(to bottom, var(--very-light-pink) 0%, var(--light-pink) 100%); /* Subtle gradient background */
     border-radius: 15px; /* MODIFIED: More rounded corners */
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* MODIFIED: Stronger, softer shadow */
 }
