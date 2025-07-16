@@ -5,7 +5,7 @@ require_once 'includes/db_connect.php';
 
 define('GOOGLE_CLIENT_ID',     '633285870360-92c5p6j3p321dh2u0ia6vr3nuuo1igh8.apps.googleusercontent.com');
 define('GOOGLE_CLIENT_SECRET', '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');
-define('GOOGLE_REDIRECT_URI', 'https://cc6145bc4d43.ngrok-free.app/NOTESYNC/google-callback.php');
+define('GOOGLE_REDIRECT_URI', 'https://7b6a5d48e60e.ngrok-free.app/NOTESYNC/google-callback.php');
 $client = new Google_Client();
 $client->setClientId(GOOGLE_CLIENT_ID);
 $client->setClientSecret(GOOGLE_CLIENT_SECRET);
